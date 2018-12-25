@@ -83,7 +83,7 @@ var formAssets = function (assetObj) {
             var div = document.createElement('div');
             var span = document.createElement('span');
             span.id = 'checkAsset';
-            span.innerHTML = '<span><input type="checkbox" onclick="addAsset(this)"/></span>'
+            span.innerHTML = '<input type="checkbox" onclick="addAsset(this)"/>'
 
             div.className = 'otmmAsset';
             div.innerHTML = '<img class = "otmmImg" src ="' + otmmBaseUrl + assetObj.rendition_content.preview_content.url + '"/>';
@@ -95,9 +95,9 @@ var formAssets = function (assetObj) {
 
 var addAsset = function (assetObj) {
     console.log("Asset obj is ", assetObj);
-    var selectedAsset = assetObj.closest(".otmmImg");
+    var selectedAsset = assetObj.closest("span");
     console.log("Image is " + selectedAsset);
     var imgPath = selectedAsset.previousElementSibling.getAttribute('src');
-    selectedImagePath = img;
+    selectedImagePath = imgPath;
 }
 
