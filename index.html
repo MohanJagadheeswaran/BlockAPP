@@ -1,0 +1,43 @@
+<html>
+
+<head></head>
+<script src="./blocksdk.js"></script>
+<script src="./blockcontent.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+<style>
+  .otmmImg {
+  height: 250px;
+  width: 250px;
+  margin: 5px;
+
+}
+#checkAsset {
+  position: absolute;
+  left: 4;
+  top: 6;
+}
+
+.otmmAsset {
+  position: relative;
+}
+
+</style>
+
+<body>
+  <div class='auth'>
+    <label>Asset Names</label>
+    <input type="text" id='assetName' value=''></input>
+    <br />
+    <br />
+    <label>Asset Type</label>
+    <input type="password" id='assetType' value=''></input>
+    <br />
+    <br />
+    <button onclick='setContentToBuilder()'>Set Content</button>
+  </div>
+  <div class="asset" id="assetContainer">
+
+
+  </div>
+
+</body>
