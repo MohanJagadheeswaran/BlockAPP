@@ -18,7 +18,7 @@ var setContentToBuilder = function () {
 }
 
 var addAssetToContentBlock = function () {
-    sdk.setContent('<img src="' + selectedImagePath + '"/>');
+    sdk.setContent('<img src="' + selectedImagePath + '"/> <img src="' + selectedImagePath + '"/>');
 }
 
 
