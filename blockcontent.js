@@ -18,7 +18,7 @@ var setContentToBuilder = function () {
 }
 
 var addAssetToContentBlock = function () {
-    sdk.setContent('<img src="'+selectedImagePath+'"/>');
+    sdk.setContent('<img src="' + selectedImagePath + '"/>');
 }
 
 
@@ -53,6 +53,7 @@ var getAssetsFromOTMM = function (authInfo) {
         var assetsObject = JSON.parse(this.responseText);
         var authContainer = document.getElementsByClassName('auth');
         authContainer[0].style.display = "none";
+        formAssets("refresh");
         if (assetsObject.assets_resource && assetsObject.assets_resource.asset_list) {
             for (var i = 0; i < assetsObject.assets_resource.asset_list.length; i++) {
                 var assetObject = assetsObject.assets_resource.asset_list[i];
@@ -67,6 +68,7 @@ var getAssetsFromOTMM = function (authInfo) {
 }
 
 var formAssets = function (assetObj) {
+
     var assetContainer = document.getElementById('assetContainer');
     if (assetObj == "button") {
         var button = document.createElement('BUTTON');
@@ -77,13 +79,24 @@ var formAssets = function (assetObj) {
         }
         //button.innerHTML("Add Asset");
         assetContainer.append(button);
-    } else {
+    }
+    if (assetObj == "refresh") {
+        assetContainer.innerHTML = "";
+        var refresh = document.createElement('span');
+        refresh.className = "refreshIcon"
+        refresh.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M9 13.5c-2.49 0-4.5-2.01-4.5-4.5S6.51 4.5 9 4.5c1.24 0 2.36.52 3.17 1.33L10 8h5V3l-1.76 1.76C12.15 3.68 10.66 3 9 3 5.69 3 3.01 5.69 3.01 9S5.69 15 9 15c2.97 0 5.43-2.16 5.9-5h-1.52c-.46 2-2.24 3.5-4.38 3.5z"/></svg>';
+        refresh.onclick = function () {
+            getAssetsFromOTMM();
+        }
+        assetContainer.append(refresh);
+    }
+    else {
         if (assetObj && assetObj.rendition_content && assetObj.rendition_content.preview_content && assetObj.rendition_content.preview_content.url) {
 
             var div = document.createElement('div');
             var span = document.createElement('span');
             span.id = 'checkAsset';
-            span.innerHTML = '<input type="checkbox" onclick="addAsset(this)"/>'
+            span.innerHTML = '<input type="checkbox" class = "checkAssetBox" onclick="addAsset(this)"/>'
 
             div.className = 'otmmAsset';
             div.innerHTML = '<img class = "otmmImg" src ="' + otmmBaseUrl + assetObj.rendition_content.preview_content.url + '"/>';
@@ -94,10 +107,19 @@ var formAssets = function (assetObj) {
 }
 
 var addAsset = function (assetObj) {
-    console.log("Asset obj is ", assetObj);
     var selectedAsset = assetObj.closest("span");
-    console.log("Image is " + selectedAsset);
     var imgPath = selectedAsset.previousElementSibling.getAttribute('src');
     selectedImagePath = imgPath;
+    var checkAssetBoxes = document.getElementsByClassName("checkAssetBox");
+    for (var i = 0; i < checkAssetBoxes.length; i++) {
+        if (assetObj != checkAssetBoxes[i]) {
+            checkAssetBoxes[i].checked = false;
+        }
+
+    }
+    // if (assetObj.checked == true) {
+    //     assetObj.checked = true;
+    // }
+
 }
 
